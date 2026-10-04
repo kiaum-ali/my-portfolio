@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 // Firebase imports for real-time counts
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/config.js';
+import { Menu } from 'lucide-react'; // হ্যামবার্গার আইকন ইম্পোর্ট করা হয়েছে
 
 import Sidebar from '../components/admin/Sidebar';
 import ProjectManager from '../admin/ProjectManager';
@@ -39,7 +40,7 @@ const DashboardHome = () => {
   }, []);
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <h2 className="text-3xl font-bold text-white mb-6">Dashboard Overview</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="glass-card p-6 border-t-4 border-t-primary">
@@ -68,16 +69,29 @@ const ComingSoon = ({ title }) => (
 );
 
 const AdminDashboard = () => {
+  // মোবাইল মেনু কন্ট্রোল করার জন্য স্টেট
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Sidebar Layout */}
-      <Sidebar />
+    <div className="flex min-h-screen bg-background relative">
+      {/* Sidebar Layout - প্রপস পাস করা হয়েছে */}
+      <Sidebar isOpen={isMobileMenuOpen} setIsOpen={setIsMobileMenuOpen} />
 
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto">
         {/* Topbar */}
-        <div className="h-16 border-b border-border bg-surface/50 backdrop-blur-sm flex items-center justify-end px-8 sticky top-0 z-40">
-          <div className="flex items-center gap-3">
+        <div className="h-16 border-b border-border bg-surface/50 backdrop-blur-sm flex items-center justify-between px-4 md:px-8 sticky top-0 z-40">
+          
+          {/* Mobile Menu Button - শুধুমাত্র মোবাইলে দেখাবে */}
+          <button 
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="md:hidden p-2 -ml-2 text-text-muted hover:text-white transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+
+          {/* Profile Section */}
+          <div className="flex items-center gap-3 ml-auto">
             <span className="text-sm font-medium text-white">Admin User</span>
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold shadow-glow">
               A
