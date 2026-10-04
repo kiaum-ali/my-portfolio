@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-text-main font-sans antialiased overflow-x-hidden min-h-screen;
+  }
+
+  /* Custom Selection Text Color */
+  ::selection {
+    @apply bg-primary/40 text-white;
+  }
+
+  /* Premium Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surfaceHover rounded-full border border-border;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/60;
+  }
+
+  /* Accessibility: Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Reusable Glassmorphism Card */
+  .glass-card {
+    @apply bg-gradient-glass backdrop-blur-glass border border-border shadow-glass rounded-2xl transition-all duration-300;
+  }
+  
+  /* Reusable Gradient Text */
+  .text-gradient {
+    @apply bg-gradient-primary bg-clip-text text-transparent;
+  }
+  
+  /* Primary Button */
+  .btn-primary {
+    @apply bg-gradient-primary text-white font-medium py-2.5 px-6 rounded-full transition-all duration-300 hover:shadow-glow hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2;
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    @apply border border-border bg-surface text-white font-medium py-2.5 px-6 rounded-full transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2;
+  }
+}
